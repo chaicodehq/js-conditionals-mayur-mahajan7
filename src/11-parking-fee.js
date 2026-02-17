@@ -34,4 +34,26 @@
  */
 export function calculateParkingFee(hours, vehicleType) {
   // Your code here
+  if (hours <= 0) return -1
+
+  const fares = {
+    car: { first: 5, additional: 3, maximum: 30 },
+    motorcycle: { first: 3, additional: 2, maximum: 18 },
+    bus: { first: 10, additional: 7, maximum: 60 },
+  }
+
+  if (!fares[vehicleType]) return -1
+
+  const { first, additional, maximum } = fares[vehicleType]
+
+  let roundedHours = Math.ceil(hours)
+  let finalAmount
+
+  if (roundedHours === 1) {
+    finalAmount = first
+  } else {
+    finalAmount = first + (roundedHours - 1)  * additional
+  }
+
+  return finalAmount > maximum ? maximum : finalAmount 
 }
